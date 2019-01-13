@@ -2,6 +2,9 @@ package com.rwa.assessment.controller;
 
 import com.rwa.assessment.domain.Product;
 import com.rwa.assessment.service.ProductService;
+
+import java.util.UUID;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -43,6 +46,9 @@ public class ProductController {
 
     @PostMapping(value = "product")
     public String saveProduct(Product product){
+    	if(null != product && (null == product.getProductId() || product.getProductId().isEmpty())) {
+    		product.setProductId(UUID.randomUUID().toString());
+    	}
         productService.saveProduct(product);
         return "redirect:/product/" + product.getId();
     }
