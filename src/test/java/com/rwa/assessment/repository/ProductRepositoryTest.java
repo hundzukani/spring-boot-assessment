@@ -52,6 +52,9 @@ public class ProductRepositoryTest {
         Product fetchedUpdatedProduct = productRepository.findById(fetchedProduct.getId())
                 .orElseThrow(AssertionError::new);
         assertEquals(fetchedProduct.getDescription(), fetchedUpdatedProduct.getDescription());
+        
+        // verify that the product id is not null or empty
+        assertNotNull(fetchedUpdatedProduct.getProductId());
 
         //verify count of products in DB
         long productCount = productRepository.count();
